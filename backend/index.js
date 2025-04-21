@@ -201,15 +201,40 @@ app.get("/get-all-notes", authenticateToken, async (req, res) => {
     return res.json({
       error: false,
       notes,
-      message: "All notes retrieved successfully"
+      message: "All notes retrieved successfully",
     });
   } catch (error) {
     return res.json({
       error: true,
-      message: "Internal server error"
+      message: "Internal server error",
     });
   }
+});
 
+// Delete note
+app.delete("/delete-note/:noteId", authenticateToken, async (req, res) => {
+  const noteId = req.params.noteId;
+  const { user } = req.user;
+
+  try {
+    const note = Note.findOne({ _id: noteId, userId: user._id });
+
+    if (!note) {
+      return res.status(404).json({ error: true, message: "Note not found" });
+    }
+
+    await Note.deleteOne({ _id: noteId, userId: user._id });
+
+    return res.json({
+      error: false,
+      message: "Note deleted successfully",
+    });
+  } catch (error) {
+    return res.json({
+      error: true,
+      mesaage: "Internal server error",
+    });
+  }
 });
 
 app.listen(8000);
