@@ -174,7 +174,7 @@ app.put("/edit-note/:noteId", authenticateToken, async (req, res) => {
     if (title) note.title = title;
     if (content) note.content = content;
     if (tags) note.tags = tags;
-    if (isPinned) note.isPinned = isPinned;
+    if (isPinned !== null) note.isPinned = isPinned;
 
     await note.save();
 
@@ -233,6 +233,42 @@ app.delete("/delete-note/:noteId", authenticateToken, async (req, res) => {
     return res.json({
       error: true,
       mesaage: "Internal server error",
+    });
+  }
+});
+
+// Update isPinned value
+app.put("/update-note-pinned/:noteId", authenticateToken, async (req, res) => {
+  const noteId = req.params.noteId;
+  const { isPinned } = req.body;
+  const { user } = req.user;
+
+  if (isPinned === undefined || isPinned === null) {
+    return res
+      .status(400)
+      .json({ error: true, message: "No changes provided" });
+  }
+
+  try {
+    const note = await Note.findOne({ _id: noteId, userId: user._id });
+
+    if (!note) {
+      return res.status(404).json({ error: true, message: "Note not found" });
+    }
+
+    note.isPinned = isPinned;
+
+    await note.save();
+
+    return res.json({
+      error: false,
+      note,
+      message: "Note pin updated successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: true,
+      message: "Internal sever error",
     });
   }
 });
