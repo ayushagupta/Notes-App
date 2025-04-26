@@ -25,25 +25,28 @@ const Login = () => {
       return;
     }
 
-    setError("")
+    setError("");
 
     // Login API call
     try {
       const response = await axiosInstance.post("/login", {
         email: email,
-        password: password
+        password: password,
       });
 
       if (response.data && response.data.accessToken) {
         localStorage.setItem("token", response.data.accessToken);
         navigate("/dashboard");
       }
-
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.message) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
         setError(error.response.data.message);
       } else {
-        setError("An unexpected error occurred. Please try again.")
+        setError("An unexpected error occurred. Please try again.");
       }
     }
   };
@@ -57,15 +60,15 @@ const Login = () => {
           <form onSubmit={handleLogin}>
             <h4 className="text-2xl mb-7">Login</h4>
 
-            <input 
-              type="text" 
-              placeholder="Email" 
+            <input
+              type="text"
+              placeholder="Email"
               className="input-box"
               value={email}
-              onChange={(e) => setEmail(e.target.value)} 
-              />
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-            <PasswordInput 
+            <PasswordInput
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
