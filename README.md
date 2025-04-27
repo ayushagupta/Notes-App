@@ -12,16 +12,16 @@ A full-stack Notes application built with the MERN (MongoDB, Express, React, Nod
 
 
 <p align="center">
-  <img src="https://imgur.com/3R42Zkr.png" alt="Login page" width="500">
+  <img src="https://imgur.com/3R42Zkr.png" alt="Login page" width="900">
 </p>
 <p align="center">
-  <img src="https://imgur.com/XVUZrnE.png" alt="Empty home page" width="500">
+  <img src="https://imgur.com/XVUZrnE.png" alt="Empty home page" width="900">
 </p>
 <p align="center">
-  <img src="https://imgur.com/eMFsw15.png" alt="All notes page" width="500">
+  <img src="https://imgur.com/eMFsw15.png" alt="All notes page" width="900">
 </p>
 <p align="center">
-  <img src="https://imgur.com/uUkHiz5.png" alt="Add/Edit note page" width="500">
+  <img src="https://imgur.com/uUkHiz5.png" alt="Add/Edit note page" width="900">
 </p>
 
 ## Tech Stack
