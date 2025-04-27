@@ -312,7 +312,7 @@ app.get("/search-notes", authenticateToken, async (req, res) => {
         { title: { $regex: new RegExp(query, "i") } },
         { content: { $regex: new RegExp(query, "i") } },
       ],
-    });
+    }).sort({ isPinned: -1 });
 
     return res.json({
       error: false,
